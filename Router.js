@@ -3,6 +3,7 @@ import { Button, Text, View } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator, CardStyleInterpolators } from "@react-navigation/stack";
 import auth from '@react-native-firebase/auth';
+import { firebase } from '@react-native-firebase/analytics';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
 import {AuthContext} from './src/containers/AuthContainer/AuthProvider';
@@ -23,7 +24,13 @@ const Routes = () => {
     if (initializing) setInitializing(false);
   };
 
+  // fn to enable Firebase Analytics
+  const enableAnalytics = async() => {
+    await firebase.analytics().setAnalyticsCollectionEnabled(true);
+  }
+
   useEffect(() => {
+    enableAnalytics();
     const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
     return subscriber; // unsubscribe on unmount
   }, []);
@@ -31,6 +38,7 @@ const Routes = () => {
   if (initializing) return null;
 
   return (
+    // Two stack navigator based on login/logout
     <NavigationContainer>
       {user ? <Stack.Navigator>
         <Stack.Screen options={({ route }) => ({ headerShown: false })} name="Home" component={Home} />

@@ -8,21 +8,23 @@ import {
   StyleSheet,
   ScrollView
 } from 'react-native';
+
 import FormInput from '../../components/FormInput';
 import FormButton from '../../components/FormButton';
 import SocialButton from '../../components/SocialButton';
 import {AuthContext} from '../AuthContainer/AuthProvider';
+import { appString, primaryColor } from "../../common/config";
 
 const Login = ({navigation}) => {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
 
-  const {login} = useContext(AuthContext);
+  const {login, googleLogin} = useContext(AuthContext);
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
 
-      <Text style={styles.text}>Notes App</Text>
+      <Text style={styles.text}>{appString.appName}</Text>
 
       <FormInput
         labelValue={email}
@@ -86,8 +88,7 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 28,
-    marginBottom: 10,
-    color: '#051d5f',
+    marginBottom: 10
   },
   navButton: {
     marginTop: 15,
@@ -98,6 +99,6 @@ const styles = StyleSheet.create({
   navButtonText: {
     fontSize: 18,
     fontWeight: '500',
-    color: '#2e64e5'
+    color: primaryColor
   },
 });

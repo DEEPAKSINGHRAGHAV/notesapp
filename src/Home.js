@@ -1,8 +1,11 @@
+// This is the Home Page where all lists of notes are shown
+
 import React, { Component, useContext, useState, useEffect } from 'react';  
 import { SafeAreaView, View, FlatList, StyleSheet, Text, StatusBar, Image, TouchableOpacity } from 'react-native';
 
 import {AuthContext} from '../src/containers/AuthContainer/AuthProvider';
 import Note from '../src/containers/notesContainer/Note';
+import { appString, whiteColor, whiteGrey } from './common/config';
 import { firestoreService } from './services/firestoreService';
 
 function Home(props)  {  
@@ -12,6 +15,7 @@ function Home(props)  {
   const [notes, setNotes] = useState([]);
   const [inProgressNetworkReq, setinProgressNetworkReq] = useState(false);
 
+  // This fn get all notes and store in state variable
  async function getNotes() {
     const snapshot = await firestoreService.getNotes(user.uid);
     let notes = [];
@@ -31,6 +35,7 @@ function Home(props)  {
     getNotes();
   });
 
+  // This is a function that render single note in lists of notes
   function renderItem({item},props) {
     return (
       <Note note={item} nav={props}/>
@@ -41,8 +46,14 @@ function Home(props)  {
     <SafeAreaView style={styles.container}>
 
     <TouchableOpacity style={styles.createIconBar} onPress={()=> props.navigation.navigate('createNote')}>
-      <Text onPress={()=> logout()}> Logout </Text>
+      <TouchableOpacity style={styles.logoutBtn}>
+        <Text style={styles.logoutTxt} onPress={()=> logout()}>{appString.logout}</Text>
+      </TouchableOpacity>
+      
+      <View>
       <Image style={styles.createImage} source={require('../assets/create.png')} />
+      </View>
+      
     </TouchableOpacity>
 
         <FlatList
@@ -64,7 +75,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     marginTop: StatusBar.currentHeight || 0,
-    backgroundColor: "#fff"
+    backgroundColor: whiteColor
   },
   item: {
     backgroundColor: '#f9c2ff',
@@ -78,17 +89,33 @@ const styles = StyleSheet.create({
   createIconBar: {
     position: "absolute",
     zIndex: 100,
-    backgroundColor: "#f2f2f2",
+    backgroundColor: whiteGrey,
     bottom: 0,
     right: 0,
     height: 50,
     width: "100%"
   },
-  createImage: {
-    height: 50,
-    width: 50,
+  logoutBtn: {
     position: "absolute",
-    right: 0
+    fontSize: 18,
+    fontWeight: "bold",
+    zIndex: 100,
+    minHeight: 50,
+    minWidth: 100
+
+  },
+  logoutTxt: {
+    fontSize: 18,
+    fontWeight: "bold",
+    color: "red",
+    padding: 5
+  },
+  createImage: {
+    height: 40,
+    width: 40,
+    position: "absolute",
+    right: 10,
+    top: 5
   }
 });
 

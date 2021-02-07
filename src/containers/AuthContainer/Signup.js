@@ -4,17 +4,18 @@ import FormInput from '../../components/FormInput';
 import FormButton from '../../components/FormButton';
 import SocialButton from '../../components/SocialButton';
 import {AuthContext} from '../AuthContainer/AuthProvider';
+import { appString } from '../../common/config';
 
 const SignupScreen = ({navigation}) => {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
   const [confirmPassword, setConfirmPassword] = useState();
 
-  const {register} = useContext(AuthContext);
+  const {register, googleLogin} = useContext(AuthContext);
 
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>Create an account</Text>
+      <Text style={styles.text}>{appString.create_an_account}</Text>
 
       <FormInput
         labelValue={email}
@@ -54,15 +55,14 @@ const SignupScreen = ({navigation}) => {
             btnType="google"
             color="#de4d41"
             backgroundColor="#f5e7ea"
-            onPress={() => {}}
-          />
+            onPress={() => googleLogin()}          />
         </View>
       ) : null}
 
       <TouchableOpacity
         style={styles.navButton}
         onPress={() => navigation.navigate('Login')}>
-        <Text style={styles.navButtonText}>Have an account? Sign In</Text>
+        <Text style={styles.navButtonText}>{appString.have_an_account}</Text>
       </TouchableOpacity>
     </View>
   );
