@@ -55,7 +55,7 @@ function Home(props)  {
       </View>
       
     </TouchableOpacity>
-
+      {notes.length==0?<View style={styles.noNotesContainer}><Text style={styles.noNotes}>No Notes</Text></View>:null}
         <FlatList
         data={notes}
         extraData={notes}
@@ -116,6 +116,13 @@ const styles = StyleSheet.create({
     position: "absolute",
     right: 10,
     top: 5
+  },
+  noNotesContainer:{ 
+    flex: 1,
+    justifyContent: "center",
+    alignSelf: "center" },
+  noNotes: {
+    fontSize: 25
   }
 });
 
