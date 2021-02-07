@@ -33,7 +33,6 @@ const styles = StyleSheet.create({
     marginVertical: 3
   },
   baseText: {
-    fontFamily: "Cochin",
     padding: 10
   },
   titleText: {

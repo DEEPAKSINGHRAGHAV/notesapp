@@ -1,13 +1,20 @@
-import React from 'react';
-import { TextInput, View, StyleSheet, SafeAreaView, Text } from 'react-native';
+import React, {useContext, useState} from 'react';
+import { TextInput, View, StyleSheet, SafeAreaView, Text, Button } from 'react-native';
 
-const NoteDetail = (props) => {
-  const [title, onChangeTitle] = React.useState(props.route.params.note.title);
-  const [description, onChangeDesc] = React.useState(props.route.params.note.description);
+import {AuthContext} from '../AuthContainer/AuthProvider';
+import { firestoreService } from '../../services/firestoreService';
+
+const createNote = (props) => {
+  const [title, onChangeTitle] = React.useState();
+  const [description, onChangeDesc] = React.useState();
+  const {user} = useContext(AuthContext);
+
+  const saveNote = async() => {
+    await firestoreService.createNote(user.uid, title, description);
+    };
 
   return (
       <SafeAreaView style={styles.container}>
-
           <View>
             <Text style={styles.titleText}>Title</Text>
             <TextInput
@@ -27,6 +34,13 @@ const NoteDetail = (props) => {
             />
         </View>
 
+        <Button
+        onPress={saveNote}
+        title="Save"
+        color="#841584"
+        accessibilityLabel="Click to Save"
+        />
+
     </SafeAreaView>
   );
 }
@@ -42,7 +56,6 @@ const styles = StyleSheet.create({
       marginVertical: 3
     },
     baseText: {
-      fontFamily: "Cochin",
       padding: 10
     },
     titleText: {
@@ -55,4 +68,4 @@ const styles = StyleSheet.create({
     }
   });
 
-export default NoteDetail;
+export default createNote;

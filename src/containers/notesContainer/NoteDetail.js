@@ -1,15 +1,16 @@
-import React from 'react';
+import React, {useContext, useState} from 'react';
 import { TextInput, View, StyleSheet, SafeAreaView, Text, Button } from 'react-native';
 
-import { firestoreService } from '../services/firestoreService';
+import {AuthContext} from '../AuthContainer/AuthProvider';
+import { firestoreService } from '../../services/firestoreService';
 
-const createNote = (props) => {
-  const [title, onChangeTitle] = React.useState();
-  const [description, onChangeDesc] = React.useState();
+const NoteDetail = (props) => {
+  const [title, onChangeTitle] = React.useState(props.route.params.note.title);
+  const [description, onChangeDesc] = React.useState(props.route.params.note.description);
+  const {user} = useContext(AuthContext);
 
   const saveNote = async() => {
-    console.log("save fn called");
-    await firestoreService.createNote("userid5678", title, description);
+    await firestoreService.updateNoteByID(props.route.params.note.id, user.uid, title, description);
     };
 
   return (
@@ -33,7 +34,6 @@ const createNote = (props) => {
             autoFocus={true}
             />
         </View>
-
         <Button
         onPress={saveNote}
         title="Save"
@@ -56,7 +56,6 @@ const styles = StyleSheet.create({
       marginVertical: 3
     },
     baseText: {
-      fontFamily: "Cochin",
       padding: 10
     },
     titleText: {
@@ -69,4 +68,4 @@ const styles = StyleSheet.create({
     }
   });
 
-export default createNote;
+export default NoteDetail;

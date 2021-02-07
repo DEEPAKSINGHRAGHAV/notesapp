@@ -2,9 +2,9 @@ import firestore from '@react-native-firebase/firestore';
 
 export class firestoreService {
 
-    static async getNotes(){
+    static async getNotes(id){
         try{
-            const notes = await firestore().collection('notes').get();
+            const notes = await firestore().collection('notes').where('userid','==', id).get();
             return notes;
         } catch(e) {
             console.log(e);
