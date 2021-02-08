@@ -49,7 +49,6 @@ const Login = ({navigation}) => {
         onPress={() => login(email, password)}
       />
 
-      {Platform.OS === 'android' ? (
         <View>
           <SocialButton
             buttonTitle="Sign In with Google"
@@ -59,7 +58,6 @@ const Login = ({navigation}) => {
             onPress={() => googleLogin()}
           />
         </View>
-      ) : null}
 
       <TouchableOpacity
         style={styles.forgotButton}

@@ -5,6 +5,7 @@
 #import <React/RCTRootView.h>
 
 #import <Firebase.h>
+#import <RNGoogleSignin/RNGoogleSignin.h>
 #ifdef FB_SONARKIT_ENABLED
 #import <FlipperKit/FlipperClient.h>
 #import <FlipperKitLayoutPlugin/FlipperKitLayoutPlugin.h>
@@ -51,6 +52,11 @@ static void InitializeFlipper(UIApplication *application) {
   [self.window makeKeyAndVisible];
   return YES;
 }
+
+- (BOOL)application:(UIApplication *)application openURL:(nonnull NSURL *)url options:(nonnull NSDictionary<NSString *,id> *)options {
+  return [RNGoogleSignin application:application openURL:url options:options];
+}
+
 
 - (NSURL *)sourceURLForBridge:(RCTBridge *)bridge
 {
