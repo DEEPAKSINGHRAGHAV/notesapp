@@ -23,7 +23,7 @@ export const AuthProvider = ({children}) => {
             // Login (Firebase Auth)
             await auth().signInWithEmailAndPassword(email, password);
           } catch (e) {
-            console.log(e);
+            
           }
         },
         googleLogin: async () => {
@@ -37,7 +37,7 @@ export const AuthProvider = ({children}) => {
             // Sign-in the user with the credential
             await auth().signInWithCredential(googleCredential);
           } catch(error) {
-            console.log({error});
+            
           }
         },   
         register: async (email, password) => {
@@ -45,7 +45,7 @@ export const AuthProvider = ({children}) => {
             // Registration (Firebase Auth)
             await auth().createUserWithEmailAndPassword(email, password);
           } catch (e) {
-            console.log(e);
+            
           }
         },
         logout: async () => {
@@ -53,7 +53,7 @@ export const AuthProvider = ({children}) => {
             // Logout fn
             await auth().signOut();
           } catch (e) {
-            console.log(e);
+            
           }
         },
       }}>

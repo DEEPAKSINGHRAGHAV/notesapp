@@ -21,7 +21,6 @@ function Home(props)  {
     let notes = [];
     snapshot.forEach(doc => {
       let note = {};
-      console.log(doc.id, '=>', doc.data());
       note.id = doc.id;
       note.title = doc.data().title;
       note.description = doc.data().description;
@@ -126,4 +125,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default Home;
+export default React.memo(Home);

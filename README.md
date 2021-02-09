@@ -31,3 +31,12 @@ https://developer.apple.com/news/?id=09122019b
 
 Work around:
 To check the notes for specific user, I have integrated email & password signup and login.
+
+
+
+Perfomance improvisation:
+
+1. Note.js was a child component of Home.js. Used shouldcomponentupdate lifecycle inside "Note.js" to avoid re-rendering.
+2. CreateNote.js & NoteDetail.js had almost same JSX so made that thing modular. 
+    "src/components/NoteForm.js"
+3. Removed all console.log()

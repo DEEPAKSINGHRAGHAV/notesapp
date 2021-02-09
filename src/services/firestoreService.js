@@ -9,7 +9,7 @@ export class firestoreService {
             const notes = await firestore().collection('notes').where('userid','==', id).get();
             return notes;
         } catch(e) {
-            console.log(e);
+            
         }   
     }
 
@@ -28,7 +28,7 @@ export class firestoreService {
             userid: userid
         });
     } catch(e) {
-        console.log(e);
+    
     }
     }
 
